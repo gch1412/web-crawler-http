@@ -6,8 +6,26 @@ function getURLsFromHTML(htmlBody, baseURL) {
     const links = dom.window.document.querySelectorAll('a')
 
     for (const link of links) {
-        console.log(link.href)
-        urls.push(link.href)
+        if (link.href.slice(0, 1) === '/') {
+
+            try {
+                const urlObj = new URL(`${baseURL}${link.href}`)
+                urls.push(urlObj.href)
+            } catch (err) {
+                console.log(`error with relative url: ${err.message}`)
+            }
+
+        } else {
+
+            try {
+                const urlObj = new URL(link.href)
+                urls.push(urlObj.href)
+            } catch (err) {
+                console.log(`error with absolute url: ${err.message}`)
+            }
+
+        }
+
     }
 
     return urls
