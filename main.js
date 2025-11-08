@@ -1,4 +1,5 @@
 const { crawlPage } = require('./crawl')
+const { printPages } = require('./report')
 
 async function main() {
     if (process.argv.length < 3) {
@@ -17,7 +18,8 @@ async function main() {
 
     const pages = await crawlPage(baseURL, baseURL, {})
 
-    console.log(pages)
+    //console.log(pages)
+    printPages(pages)
 }
 
 main()
